@@ -1,5 +1,4 @@
 {
-  // our environments variables
   "env": {
     "MONGO_USER": "vartanyan",
     "MONGO_PASSWORD": "kzwyGVEFGYmLclRK",
