@@ -8,8 +8,10 @@ const app = express();
 
 const graphQlSchema = require("./graphql/schema/index");
 const graphQlResolvers = require("./graphql/resolvers/index");
+const isAuth = require('./graphql/middleware/isAuth')
 
 app.use(bodyParser.json());
+app.use(isAuth);
 
 // using express to hit the graphql endpoint && building the schema using express-graphql
 app.use(
