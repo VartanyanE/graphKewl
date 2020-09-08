@@ -13,6 +13,16 @@ const isAuth = require('./graphql/middleware/isAuth')
 app.use(bodyParser.json());
 app.use(isAuth);
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 // using express to hit the graphql endpoint && building the schema using express-graphql
 app.use(
   "/graphql",
@@ -30,7 +40,7 @@ app.use(
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost/graphql")
   .then(() => {
-    app.listen(3000);
+    app.listen(8000);
   })
   .catch((err) => {
     console.log(err);
