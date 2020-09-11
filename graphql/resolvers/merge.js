@@ -1,11 +1,11 @@
-const Event = require("../../models/event");
+const Compliment = require("../../models/compliment");
 const User = require("../../models/user");
 
-const events = async (eventIds) => {
+const compliments = async (eventIds) => {
   try {
-    const events = await Event.find({ _id: { $in: eventIds } });
-    return events.map((event) => {
-      return transformEvent(event);
+    const compliments = await Compliment.find({ _id: { $in: eventIds } });
+    return compliments.map((compliment) => {
+      return transformCompliment(compliment);
     });
   } catch (err) {
     throw err;
@@ -18,18 +18,18 @@ const user = async (userId) => {
     return {
       ...user._doc,
       _id: user.id,
-      createdEvents: events.bind(this, user._doc.createdEvents),
+      createdCompliments: compliments.bind(this, user._doc.createdCompliments),
     };
   } catch (err) {
     throw err;
   }
 };
 
-const singleEvent = async (eventId) => {
+const singleCompliment = async (eventId) => {
   try {
-    const event = await Event.findById(eventId);
+    const compliment = await Compliment.findById(eventId);
 
-    return transformEvent(event);
+    return transformCompliment(compliment);
   } catch (err) {
     throw err;
   }
@@ -40,18 +40,18 @@ const transformBooking = (booking) => {
     ...booking._doc,
     _id: booking.id,
     user: user.bind(this, booking._doc.user),
-    event: singleEvent.bind(this, booking._doc.event),
+    compliment: singleCompliment.bind(this, booking._doc.compliment),
     createdAt: new Date(booking._doc.createdAt).toISOString(),
     updatedAt: new Date(booking._doc.updatedAt).toISOString(),
   };
 };
 
-const transformEvent = (event) => {
+const transformCompliment = (compliment) => {
   return {
-    ...event._doc,
-    _id: event.id,
-    date: new Date(event._doc.date).toISOString(),
-    creator: user.bind(this, event.creator),
+    ...compliment._doc,
+    _id: compliment.id,
+
+    creator: user.bind(this, compliment.creator),
   };
 };
 
@@ -59,5 +59,5 @@ const transformEvent = (event) => {
 // exports.events = events;
 // exports.singleEvent = singleEvent;
 
-exports.transformEvent = transformEvent;
+exports.transformCompliment = transformCompliment;
 exports.transformBooking = transformBooking;

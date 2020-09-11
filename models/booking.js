@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema({
-    event: {
+    compliment: {
         type: Schema.Types.ObjectId,
-        ref: 'Event'
+        ref: 'Compliment'
     },
 
     user: {
