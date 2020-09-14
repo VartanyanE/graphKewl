@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 
 class EventsPage extends Component {
-  state = {
-    compliments: "",
-  };
-  submitHandler = (event) => {
-    event.preventDefault();
-
+  componentDidMount() {
+    this.state = [{}];
     let requestBody = {
       query: `
       query {
@@ -31,17 +27,21 @@ class EventsPage extends Component {
         return res.json();
       })
       .then((resData) => {
-        this.setState({ compliments: resData.data.compliments[0].compliment });
+        this.setState({ compliments: resData.data });
+        console.log(this.state);
       })
       .catch((err) => {
         console.log(err);
       });
-  };
+  }
   render() {
     return (
-      <button onClick={this.submitHandler}>{this.state.compliments}</button>
+      <div>
+        {this.state.compliments.map((item) => ({
+          item,
+        }))}
+      </div>
     );
   }
 }
-
 export default EventsPage;
