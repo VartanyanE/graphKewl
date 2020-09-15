@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+// import axios from 'axios'
 
-class EventsPage extends React.Component {
-    state = {
-        compliments: []
-    }
-    componentDidMount() {
+function EventsPage() {
+    const [comp, setComp] = useState({});
 
+
+    useEffect(() => {
         let requestBody = {
             query: `
       query {
@@ -30,22 +30,40 @@ class EventsPage extends React.Component {
                 return res.json();
             })
             .then((resData) => {
-                return this.setState({ compliments: resData });
-                console.log(this.state);
+
+                setComp(resData);
+                console.log(comp);
             })
             .catch((err) => {
                 console.log(err);
             });
-        console.log(this.state)
-    }
-    render() {
-        return (
-            <div>
-                {/* {this.state.compliments.map((item) => (
+
+    }, [])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    return (
+        <div>
+            {/* {this.state.compliments.map((item) => (
                     <h1>{item.compliment}</h1>
                 ))} */}
-            </div>
-        );
-    }
+        </div>
+    );
+
 }
 export default EventsPage;
