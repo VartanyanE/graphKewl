@@ -1,8 +1,8 @@
-const Event = require("../../models/event");
+const Compliment = require("../../models/compliment");
 
 const Booking = require("../../models/booking");
 
-const { transformBooking, transformEvent } = require("./merge");
+const { transformBooking, transformCompliment } = require("./merge");
 
 module.exports = {
   //  GET request
@@ -26,10 +26,10 @@ module.exports = {
     if (!req.isAuth) {
       throw new Error('Unauthenticated');
     }
-    const fetchedEvent = await Event.findOne({ _id: args.eventId });
+    const fetchedEvent = await Compliment.findOne({ _id: args.eventId });
     const booking = new Booking({
       user: req.userId,
-      event: fetchedEvent,
+      compliment: fetchedEvent,
     });
 
     const result = await booking.save();
@@ -40,12 +40,12 @@ module.exports = {
       if (!req.isAuth) {
         throw new Error('Unauthenticated');
       }
-      const booking = await Booking.findById(args.bookingId).populate("event");
-      const event = transformEvent(booking.event);
+      const booking = await Booking.findById(args.bookingId).populate("compliment");
+      const compliment = transformCompliment(booking.compliments);
       console.log(booking);
 
       await Booking.deleteOne({ _id: args.bookingId });
-      return event;
+      return compliment;
     } catch (err) {
       throw err;
     }

@@ -1,10 +1,10 @@
 const authResolver = require("./auth");
-const eventsResolver = require("./events");
+const complimentsResolver = require("./compliments");
 const bookingResolver = require("./booking");
 
 const rootResolver = {
   ...authResolver,
-  ...eventsResolver,
+  ...complimentsResolver,
   ...bookingResolver,
 };
 

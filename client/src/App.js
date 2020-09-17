@@ -11,8 +11,7 @@ import BookingsPage from "./pages/Bookings";
 import EventsPage from "./pages/Events";
 import Navigation from "./components/Navigation/Navigation";
 import AuthContext from "./context/auth-context";
-import { Token } from "graphql";
-
+import Horoscope from "./components/Horoscope";
 class App extends Component {
   state = {
     token: null,
@@ -50,6 +49,7 @@ class App extends Component {
                   <Route path="/auth" component={AuthPage} />
                 )}
                 <Route path="/events" component={EventsPage} />
+                <Route path="/horoscope" component={Horoscope} />
                 {this.state.token && (
                   <Route path="/bookings" component={BookingsPage} />
                 )}

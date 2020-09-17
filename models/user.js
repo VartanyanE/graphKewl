@@ -13,10 +13,10 @@ const userSchema = new Schema({
     required: true,
   },
 
-  createdEvents: [
+  createdCompliments: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Event",
+      ref: "Compliment",
     },
   ],
 });
