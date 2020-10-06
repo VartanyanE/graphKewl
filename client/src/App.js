@@ -12,6 +12,12 @@ import EventsPage from "./pages/Events";
 import Navigation from "./components/Navigation/Navigation";
 import AuthContext from "./context/auth-context";
 import Horoscope from "./components/Horoscope";
+
+import Compliments from "./pages/Compliments";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 class App extends Component {
   state = {
     token: null,
@@ -55,6 +61,7 @@ class App extends Component {
                 )}
               </Switch>
             </main>
+            <Compliments/>
           </AuthContext.Provider>
         </>
       </Router>
