@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
 class Horoscope extends Component {
-  async SubmitHandler(event) {
+  shouldComponentUpdate() {
+    return true;
+  }
+  SubmitHandler = async (event) => {
     event.preventDefault();
     await fetch(
       "https://horoscopeapi-horoscope-v1.p.rapidapi.com/daily?date=today",
@@ -11,6 +14,7 @@ class Horoscope extends Component {
           "x-rapidapi-host": "horoscopeapi-horoscope-v1.p.rapidapi.com",
           "x-rapidapi-key":
             "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
+          "Content-Type": "application/json",
         },
       }
     )
@@ -24,7 +28,7 @@ class Horoscope extends Component {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   render() {
     return (

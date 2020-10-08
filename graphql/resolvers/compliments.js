@@ -1,3 +1,4 @@
+const compliment = require("../../models/compliment");
 const Compliment = require("../../models/compliment");
 const User = require("../../models/user");
 const { transformCompliment } = require("./merge");
