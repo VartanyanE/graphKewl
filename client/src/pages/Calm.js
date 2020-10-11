@@ -2,12 +2,18 @@ import React, { Component } from "react";
 
 class Calm extends React.Component {
   state = {
+    signs: "",
     compliments: [],
+    randomComp: [],
+    horoscope: [],
+
   };
 
-  shouldComponentUpdate() {
-    return true;
-  }
+
+
+
+
+
 
   fetchCompliments = async () => {
     let requestBody = {
@@ -35,28 +41,91 @@ class Calm extends React.Component {
       })
       .then((resData) => {
         this.setState({ compliments: resData.data.compliments });
-        console.log(this.state);
+
       })
       .catch((err) => {
         console.log(err);
       });
+
+
+    this.state.compliments.map((item) => {
+      this.state.compliments.sort(() => Math.random() - Math.random())
+        .find(() => true);
+
+      this.setState({ randomComp: [item] });
+
+
+
+    }
+
+    )
   };
 
-  render() {
-    // const randComp = this.state.compliments.map((item) =>
-    //   // item.compliment[Math.floor(Math.random() * item.compliment.length)]
+  selectSign = () => {
+    const sign = document.getElementById('signs')
+    const selectedSign = sign.options[sign.selectedIndex].value;
+    this.setState({ signs: selectedSign })
+    console.log(selectedSign)
+  }
 
-    //   // item.compliment ? item.compliment[0] : ""
-    // );
-    // console.log(randComp);
+  fetchHoroscope = async () => {
+    console.log(this.state)
+
+
+    // await fetch(`https://horoscope5.p.rapidapi.com/general/daily?sign=${this.state.signs}`, {
+    //   "method": "GET",
+    //   "headers": {
+    //     "x-rapidapi-host": "horoscope5.p.rapidapi.com",
+    //     "x-rapidapi-key": "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a"
+    //   }
+    // })
+    //   .then(response => {
+    //     return response.json();
+    //   })
+    //   .then(res => {
+    //     this.setState({ horoscope: [res.result.description] });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+
+
+  }
+
+
+  render() {
+
+
 
     return (
+
       <div>
         <button onClick={this.fetchCompliments}>GIVE ME A COMPLIMENT</button>
-        {this.state.compliments.map((item) => (
-          <h5>{item.compliment}</h5>
+
+        {this.state.randomComp.map((item, index) => (
+          <h5 key={index} >{item.compliment}</h5>
         ))}
-        {/* <h5>{randComp}</h5> */}
+        <div> <label for="signs">What is your sign?:</label>
+
+          <select name="signs" id="signs" onChange={this.selectSign}>
+            <option value=""></option>
+            <option value="virgo"  >Virgo</option>
+            <option value="cancer">Cancer</option>
+            <option value="gemini">Gemini</option>
+            <option value="leo">Leo</option>
+            <option value="scorpio">Scorpio</option>
+
+
+          </select>
+
+          <button onClick={this.fetchHoroscope}>GIVE ME MY HOROSCOPE</button>
+          {this.state.horoscope.map((item, index) => (
+            <h5 key={index} >{item}</h5>
+          ))}
+
+
+
+        </div>
       </div>
     );
   }
