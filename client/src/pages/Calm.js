@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import "./Calm.css";
+import video from './rain.mp4'
+
 
 class Calm extends React.Component {
   state = {
@@ -6,6 +9,7 @@ class Calm extends React.Component {
     compliments: [],
     randomComp: [],
     horoscope: [],
+    joke: []
 
   };
 
@@ -92,6 +96,29 @@ class Calm extends React.Component {
 
   }
 
+  fetchJoke = () => {
+    fetch(
+      "https://webknox-jokes.p.rapidapi.com/jokes/random?maxLength=100&minRating=8",
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "webknox-jokes.p.rapidapi.com",
+          "x-rapidapi-key":
+            "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
+        },
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((res) => {
+        this.setState({ joke: [res.joke] });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   render() {
 
@@ -100,32 +127,43 @@ class Calm extends React.Component {
     return (
 
       <div>
-        <button onClick={this.fetchCompliments}>GIVE ME A COMPLIMENT</button>
+        <video autoPlay muted loop id="myVideo">
+          <source src={video} type="video/mp4" />
+        </video>
+        {/* <button onClick={this.fetchCompliments}>GIVE ME A COMPLIMENT</button>
 
         {this.state.randomComp.map((item, index) => (
           <h5 key={index} >{item.compliment}</h5>
         ))}
-        <div> <label for="signs">What is your sign?:</label>
+        <div> <label htmlFor="signs">What is your sign?:</label>
 
           <select name="signs" id="signs" onChange={this.selectSign}>
             <option value=""></option>
-            <option value="virgo"  >Virgo</option>
-            <option value="cancer">Cancer</option>
+            <option value="aquarius"  >Aquarius</option>
+            <option value="pisces"  >Pisces</option>
+            <option value="aries"  >Aries</option>
+            <option value="taurus"  >Taurus</option>
             <option value="gemini">Gemini</option>
+            <option value="cancer">Cancer</option>
             <option value="leo">Leo</option>
+            <option value="virgo"  >Virgo</option>
+            <option value="libra"  >Libra</option>
             <option value="scorpio">Scorpio</option>
-
-
+            <option value="sagittarius"  >Sagittarius</option>
+            <option value="capricorn"  >Capricorn</option>
           </select>
 
           <button onClick={this.fetchHoroscope}>GIVE ME MY HOROSCOPE</button>
           {this.state.horoscope.map((item, index) => (
             <h5 key={index} >{item}</h5>
           ))}
+          <button onClick={this.fetchJoke}>TELL ME A JOKE</button>
+          {this.state.joke.map((item, index) => (
+            <h5 key={index}>{item}</h5>
 
+          ))}
 
-
-        </div>
+        </div> */}
       </div>
     );
   }
