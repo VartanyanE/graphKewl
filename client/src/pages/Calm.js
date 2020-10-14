@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Calm.css";
-import video from './rain.mp4'
-
+import video from "./rain.mp4";
 
 class Calm extends React.Component {
   state = {
@@ -9,15 +8,8 @@ class Calm extends React.Component {
     compliments: [],
     randomComp: [],
     horoscope: [],
-    joke: []
-
+    joke: [],
   };
-
-
-
-
-
-
 
   fetchCompliments = async () => {
     let requestBody = {
@@ -45,36 +37,30 @@ class Calm extends React.Component {
       })
       .then((resData) => {
         this.setState({ compliments: resData.data.compliments });
-
       })
       .catch((err) => {
         console.log(err);
       });
 
-
     this.state.compliments.map((item) => {
-      this.state.compliments.sort(() => Math.random() - Math.random())
+      this.state.compliments
+        .sort(() => Math.random() - Math.random())
         .find(() => true);
 
       this.setState({ randomComp: [item] });
-
-
-
-    }
-
-    )
+    });
   };
 
   selectSign = () => {
-    const sign = document.getElementById('signs')
+    const sign = document.getElementById("signs");
     const selectedSign = sign.options[sign.selectedIndex].value;
-    this.setState({ signs: selectedSign })
-    console.log(selectedSign)
-  }
+    this.setState({ signs: selectedSign });
+    console.log(selectedSign);
+    this.fetchHoroscope();
+  };
 
   fetchHoroscope = async () => {
-    console.log(this.state)
-
+    console.log(this.state);
 
     // await fetch(`https://horoscope5.p.rapidapi.com/general/daily?sign=${this.state.signs}`, {
     //   "method": "GET",
@@ -92,9 +78,7 @@ class Calm extends React.Component {
     //   .catch(err => {
     //     console.log(err);
     //   });
-
-
-  }
+  };
 
   fetchJoke = () => {
     fetch(
@@ -119,17 +103,11 @@ class Calm extends React.Component {
       });
   };
 
-
   render() {
-
-
-
     return (
-
       <div>
-        <video autoPlay muted loop id="myVideo">
-          <source src={video} type="video/mp4" />
-        </video>
+        <h1>Calm</h1>
+
         {/* <button onClick={this.fetchCompliments}>GIVE ME A COMPLIMENT</button>
 
         {this.state.randomComp.map((item, index) => (

@@ -9,6 +9,7 @@ import {
 // import AuthPage from "./pages/Auth";
 // import BookingsPage from "./pages/Bookings";
 import Calm from "./pages/Calm";
+import Landing from "./pages/Landing";
 // import Navigation from "./components/Navigation/Navigation";
 // import AuthContext from "./context/auth-context";
 // import Horoscope from "./components/Horoscope";
@@ -39,9 +40,9 @@ class App extends Component {
           > */}
           {/* <Navigation /> */}
           <main className="main-content">
-            <Switch>
-              <Route path="/" component={Calm} />
-              {/* {!this.state.token && <Redirect from="/" to="/auth" exact />}
+            <Route exact path="/" component={Landing} />
+            <Route path="/calm" component={Calm} />
+            {/* {!this.state.token && <Redirect from="/" to="/auth" exact />}
                 {this.state.token && <Redirect from="/" to="/events" exact />}
                 {this.state.token && (
                   <Redirect from="/auth" to="/events" exact />
@@ -54,7 +55,6 @@ class App extends Component {
                 {this.state.token && (
                   <Route path="/bookings" component={BookingsPage} />
                 )} */}
-            </Switch>
           </main>
           {/* </AuthContext.Provider> */}
         </>
