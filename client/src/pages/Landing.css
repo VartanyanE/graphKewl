@@ -6,3 +6,11 @@
     min-height: 100%;
     z-index: -5;
 }
+
+.container {
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}
