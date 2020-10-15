@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Calm.css";
 import video from "./rain.mp4";
 import { AnimatePresence, motion } from "framer-motion";
+import SimpleBottomNavigation from "../components/BottomNav";
 
 class Calm extends React.Component {
   state = {
@@ -116,9 +117,9 @@ class Calm extends React.Component {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={pageTransition}
-      >
-        <h1>Calm</h1>
-
+      > <div className="bottomNav">
+          <SimpleBottomNavigation />
+        </div>
         {/* <button onClick={this.fetchCompliments}>GIVE ME A COMPLIMENT</button>
 
         {this.state.randomComp.map((item, index) => (
