@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -40,8 +41,10 @@ class App extends Component {
           > */}
           {/* <Navigation /> */}
           <main className="main-content">
-            <Route exact path="/" component={Landing} />
-            <Route path="/calm" component={Calm} />
+            <AnimatePresence>
+              <Route exact path="/" component={Landing} />
+              <Route path="/calm" component={Calm} />
+            </AnimatePresence>
             {/* {!this.state.token && <Redirect from="/" to="/auth" exact />}
                 {this.state.token && <Redirect from="/" to="/events" exact />}
                 {this.state.token && (

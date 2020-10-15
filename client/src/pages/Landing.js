@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
+import { AnimatePresence, motion } from "framer-motion";
 
 import "./Landing.css";
 import video from "./rain.mp4";
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
 const StyledButton = withStyles({
   root: {
     background: "linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c)",
+
     borderRadius: 3,
     border: 0,
     color: "black",
@@ -46,6 +48,35 @@ const StyledButton = withStyles({
     fontSize: 28,
   },
 })(Button);
+
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    x: "-100px",
+    scale: 0.8,
+  },
+  in: {
+    opacity: 1,
+    x: "40px",
+    y: "0px",
+    scale: 1,
+  },
+  out: {
+    opacity: 0,
+    x: "100px",
+    scale: 1.2,
+  },
+};
+
+const pageTransition = {
+  type: "tween",
+  ease: "anticipate",
+  duration: 2.5,
+};
+
+const pageStyle = {
+  position: "absolute",
+};
 const Landing = () => {
   useEffect(() => {
     setContactOpen(true);
@@ -59,16 +90,23 @@ const Landing = () => {
     config: config.slow,
   });
   return (
-    <div className={classes.root}>
-      <video autoPlay muted loop id="myVideo">
-        <source src={video} type="video/mp4" />
-      </video>
+    <motion.div
+      // style={pageStyle}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={classes.root}
+      transition={pageTransition}
+    >
       <animated.div className={classes.button} style={fade}>
         <Link to="/calm" style={{ textDecoration: "none" }}>
           <StyledButton>escape</StyledButton>
         </Link>
       </animated.div>
-    </div>
+      <video autoPlay muted loop id="myVideo">
+        <source src={video} type="video/mp4" />
+      </video>
+    </motion.div>
   );
 };
 

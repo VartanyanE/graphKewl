@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Calm.css";
 import video from "./rain.mp4";
+import { AnimatePresence, motion } from "framer-motion";
 
 class Calm extends React.Component {
   state = {
@@ -104,8 +105,18 @@ class Calm extends React.Component {
   };
 
   render() {
+    const pageTransition = {
+      type: "tween",
+      ease: "anticipate",
+      duration: 2.5,
+    };
     return (
-      <div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={pageTransition}
+      >
         <h1>Calm</h1>
 
         {/* <button onClick={this.fetchCompliments}>GIVE ME A COMPLIMENT</button>
@@ -142,7 +153,7 @@ class Calm extends React.Component {
           ))}
 
         </div> */}
-      </div>
+      </motion.div>
     );
   }
 }
