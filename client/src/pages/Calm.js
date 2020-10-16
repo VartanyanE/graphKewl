@@ -3,6 +3,7 @@ import "./Calm.css";
 import video from "./rain.mp4";
 import { AnimatePresence, motion } from "framer-motion";
 import SimpleBottomNavigation from "../components/BottomNav";
+import Container from '@material-ui/core/Container';
 
 class Calm extends React.Component {
   state = {
@@ -39,6 +40,7 @@ class Calm extends React.Component {
       })
       .then((resData) => {
         this.setState({ compliments: resData.data.compliments });
+        console.log(this.state.compliments)
       })
       .catch((err) => {
         console.log(err);
@@ -117,8 +119,10 @@ class Calm extends React.Component {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={pageTransition}
-      > <div className="bottomNav">
-          <SimpleBottomNavigation />
+        className="container"
+      >
+        <div className="bottomNav">
+          <SimpleBottomNavigation compliment={this.fetchCompliments} joke={this.fetchJoke} horoscope={this.fetchHoroscope} />
         </div>
         {/* <button onClick={this.fetchCompliments}>GIVE ME A COMPLIMENT</button>
 
