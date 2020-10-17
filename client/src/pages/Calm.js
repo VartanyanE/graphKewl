@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import "./Calm.css";
 import video from "./rain.mp4";
+import ballClack from "../ball-clack.wav"
 import { AnimatePresence, motion } from "framer-motion";
 import SimpleBottomNavigation from "../components/BottomNav";
 import Container from "@material-ui/core/Container";
+import SimpleCard from "../components/Card"
 
 class Calm extends React.Component {
   state = {
@@ -14,7 +16,9 @@ class Calm extends React.Component {
     joke: [],
   };
 
+
   fetchCompliments = async () => {
+
     let requestBody = {
       query: `
       query {
@@ -33,12 +37,15 @@ class Calm extends React.Component {
       },
     })
       .then((res) => {
+        const audioEl = document.getElementsByClassName("audio-element")[0]
+        audioEl.play()
         if (res.status !== 200 && res.status !== 201) {
           throw new Error("Failed!");
         }
         return res.json();
       })
       .then((resData) => {
+
         this.setState({ compliments: resData.data.compliments });
         console.log(this.state.compliments);
       })
@@ -46,6 +53,7 @@ class Calm extends React.Component {
         console.log(err);
         return;
       });
+
     this.randomComp();
   };
   randomComp = async () => {
@@ -57,6 +65,7 @@ class Calm extends React.Component {
       this.setState({ randomComp: [items] });
       console.log(this.state.randomComp);
     });
+
   };
   selectSign = () => {
     const sign = document.getElementById("signs");
@@ -122,10 +131,16 @@ class Calm extends React.Component {
         transition={pageTransition}
         className="container"
       >
+        <div>
+          <audio className="audio-element">
+            <source src={ballClack}></source>
+          </audio>
+        </div>
         <div className="compliment">
-          {this.state.randomComp.map((item, index) => (
+
+          <SimpleCard comp={this.state.randomComp.map((item, index) => (
             <h3 key={index}>{item.compliment}</h3>
-          ))}
+          ))} />
         </div>
         <div className="bottomNav">
           <SimpleBottomNavigation

@@ -32,7 +32,7 @@ module.exports = {
       const result = await compliment.save();
 
       createdCompliment = transformCompliment(result);
-      const creator = await User.findById("5f5006ee9e715d74d24e4d8c");
+      const creator = await User.findById("5f5affb3903ef62adcc01e5e");
 
       if (!creator) {
         throw new Error("User not found");
