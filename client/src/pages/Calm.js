@@ -3,7 +3,7 @@ import "./Calm.css";
 import video from "./rain.mp4";
 import { AnimatePresence, motion } from "framer-motion";
 import SimpleBottomNavigation from "../components/BottomNav";
-import Container from '@material-ui/core/Container';
+import Container from "@material-ui/core/Container";
 
 class Calm extends React.Component {
   state = {
@@ -40,21 +40,24 @@ class Calm extends React.Component {
       })
       .then((resData) => {
         this.setState({ compliments: resData.data.compliments });
-        console.log(this.state.compliments)
+        console.log(this.state.compliments);
       })
       .catch((err) => {
         console.log(err);
+        return;
       });
-
-    this.state.compliments.map((item) => {
+    this.randomComp();
+  };
+  randomComp = async () => {
+    await this.state.compliments.map((items) => {
       this.state.compliments
         .sort(() => Math.random() - Math.random())
         .find(() => true);
 
-      this.setState({ randomComp: [item] });
+      this.setState({ randomComp: [items] });
+      console.log(this.state.randomComp);
     });
   };
-
   selectSign = () => {
     const sign = document.getElementById("signs");
     const selectedSign = sign.options[sign.selectedIndex].value;
@@ -64,8 +67,6 @@ class Calm extends React.Component {
   };
 
   fetchHoroscope = async () => {
-    console.log(this.state);
-
     // await fetch(`https://horoscope5.p.rapidapi.com/general/daily?sign=${this.state.signs}`, {
     //   "method": "GET",
     //   "headers": {
@@ -115,20 +116,27 @@ class Calm extends React.Component {
     };
     return (
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 0.6 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={pageTransition}
         className="container"
       >
+        <div className="compliment">
+          {this.state.randomComp.map((item, index) => (
+            <h3 key={index}>{item.compliment}</h3>
+          ))}
+        </div>
         <div className="bottomNav">
-          <SimpleBottomNavigation compliment={this.fetchCompliments} joke={this.fetchJoke} horoscope={this.fetchHoroscope} />
+          <SimpleBottomNavigation
+            compliment={this.fetchCompliments}
+            joke={this.fetchJoke}
+            horoscope={this.fetchHoroscope}
+          />
         </div>
         {/* <button onClick={this.fetchCompliments}>GIVE ME A COMPLIMENT</button>
 
-        {this.state.randomComp.map((item, index) => (
-          <h5 key={index} >{item.compliment}</h5>
-        ))}
+        
         <div> <label htmlFor="signs">What is your sign?:</label>
 
           <select name="signs" id="signs" onChange={this.selectSign}>
