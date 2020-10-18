@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import "./Landing.css";
 import video from "./rain.mp4";
 import { Button } from "@material-ui/core";
-import { useTransition, animated, useSpring, config } from "react-spring";
+// import { useTransition, animated, useSpring, config } from "react-spring";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -83,12 +83,12 @@ const Landing = () => {
   });
   const classes = useStyles();
   const [isContactOpen, setContactOpen] = useState(false);
-  const fade = useSpring({
-    transform: isContactOpen
-      ? `tranlate3d(0,0,0) scale(1)`
-      : `translate3d(0,0,0) scale(0.01)`,
-    config: config.slow,
-  });
+  //   const fade = useSpring({
+  //     transform: isContactOpen
+  //       ? `tranlate3d(0,0,0) scale(1)`
+  //       : `translate3d(0,0,0) scale(0.01)`,
+  //     config: config.slow,
+  //   });
   return (
     <motion.div
       // style={pageStyle}
@@ -98,11 +98,11 @@ const Landing = () => {
       className={classes.root}
       transition={pageTransition}
     >
-      <animated.div className={classes.button} style={fade}>
+      <div className={classes.button}>
         <Link to="/calm" style={{ textDecoration: "none" }}>
           <StyledButton>escape</StyledButton>
         </Link>
-      </animated.div>
+      </div>
       <video autoPlay muted loop id="myVideo">
         <source src={video} type="video/mp4" />
       </video>

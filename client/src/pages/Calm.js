@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import "./Calm.css";
 import video from "./rain.mp4";
-import ballClack from "../ball-clack.wav"
+import ballClack from "../ball-clack.wav";
 import { AnimatePresence, motion } from "framer-motion";
 import SimpleBottomNavigation from "../components/BottomNav";
 import Container from "@material-ui/core/Container";
-import SimpleCard from "../components/Card"
+import SimpleCard from "../components/Card";
 
 class Calm extends React.Component {
   state = {
@@ -16,9 +16,7 @@ class Calm extends React.Component {
     joke: [],
   };
 
-
   fetchCompliments = async () => {
-
     let requestBody = {
       query: `
       query {
@@ -37,17 +35,16 @@ class Calm extends React.Component {
       },
     })
       .then((res) => {
-        const audioEl = document.getElementsByClassName("audio-element")[0]
-        audioEl.play()
+        const audioEl = document.getElementsByClassName("audio-element")[0];
+        audioEl.play();
         if (res.status !== 200 && res.status !== 201) {
           throw new Error("Failed!");
         }
         return res.json();
       })
       .then((resData) => {
-
         this.setState({ compliments: resData.data.compliments });
-        console.log(this.state.compliments);
+        // console.log(this.state.compliments);
       })
       .catch((err) => {
         console.log(err);
@@ -63,9 +60,8 @@ class Calm extends React.Component {
         .find(() => true);
 
       this.setState({ randomComp: [items] });
-      console.log(this.state.randomComp);
+      // console.log(this.state.randomComp);
     });
-
   };
   selectSign = () => {
     const sign = document.getElementById("signs");
@@ -76,22 +72,30 @@ class Calm extends React.Component {
   };
 
   fetchHoroscope = async () => {
-    // await fetch(`https://horoscope5.p.rapidapi.com/general/daily?sign=${this.state.signs}`, {
-    //   "method": "GET",
-    //   "headers": {
-    //     "x-rapidapi-host": "horoscope5.p.rapidapi.com",
-    //     "x-rapidapi-key": "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a"
-    //   }
-    // })
-    //   .then(response => {
-    //     return response.json();
-    //   })
-    //   .then(res => {
-    //     this.setState({ horoscope: [res.result.description] });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    await fetch(
+      `https://horoscope5.p.rapidapi.com/general/daily?sign=${this.state.signs}`,
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "horoscope5.p.rapidapi.com",
+          "x-rapidapi-key":
+            "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
+        },
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((res) => {
+        this.setState({ horoscope: [res.result.description] });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  showSelect = () => {
+    console.log("yezzie");
   };
 
   fetchJoke = () => {
@@ -111,6 +115,7 @@ class Calm extends React.Component {
       })
       .then((res) => {
         this.setState({ joke: [res.joke] });
+        console.log(this.state.joke);
       })
       .catch((err) => {
         console.log(err);
@@ -136,11 +141,25 @@ class Calm extends React.Component {
             <source src={ballClack}></source>
           </audio>
         </div>
-        <div className="compliment">
+        <div className="card-style">
+          <SimpleCard
+            fetch={this.state.randomComp.map((item, index) => (
+              <h3
+                style={{ display: "flex", justifyContent: "center" }}
+                key={index}
+              >
+                {item.compliment}
+              </h3>
+            ))}
+          />
+        </div>
 
-          <SimpleCard comp={this.state.randomComp.map((item, index) => (
-            <h3 key={index}>{item.compliment}</h3>
-          ))} />
+        <div className="card-style">
+          <SimpleCard
+            fetch={this.state.joke.map((item, index) =>
+              item != "" ? <h5 key={index}>{item}</h5> : this.showSelect()
+            )}
+          />
         </div>
         <div className="bottomNav">
           <SimpleBottomNavigation
