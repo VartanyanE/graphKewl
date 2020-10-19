@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import "./App.css";
 import {
   BrowserRouter as Router,
   Route,
   // Redirect,
-  Switch,
+
 } from "react-router-dom";
 // import AuthPage from "./pages/Auth";
 // import BookingsPage from "./pages/Bookings";
@@ -42,8 +42,8 @@ class App extends Component {
           {/* <Navigation /> */}
           <main className="main-content">
             <AnimatePresence>
-              <Route exact path="/" component={Landing} />
-              <Route path="/calm" component={Calm} />
+              <Route exact path="/" component={Landing} key={1} />
+              <Route path="/calm" component={Calm} key={2} />
             </AnimatePresence>
             {/* {!this.state.token && <Redirect from="/" to="/auth" exact />}
                 {this.state.token && <Redirect from="/" to="/events" exact />}

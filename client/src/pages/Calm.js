@@ -1,11 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import "./Calm.css";
-import video from "./rain.mp4";
+
 import ballClack from "../ball-clack.wav";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import SimpleBottomNavigation from "../components/BottomNav";
-import Container from "@material-ui/core/Container";
+
 import SimpleCard from "../components/Card";
+
 
 class Calm extends React.Component {
   state = {
@@ -14,6 +15,7 @@ class Calm extends React.Component {
     randomComp: [],
     horoscope: [],
     joke: [],
+    toggle: (false)
   };
 
   fetchCompliments = async () => {
@@ -54,72 +56,81 @@ class Calm extends React.Component {
     this.randomComp();
   };
   randomComp = async () => {
-    await this.state.compliments.map((items) => {
+    this.state.compliments.map((items) => {
       this.state.compliments
         .sort(() => Math.random() - Math.random())
         .find(() => true);
 
-      this.setState({ randomComp: [items] });
+      return this.setState({ randomComp: [items] });
       // console.log(this.state.randomComp);
     });
   };
-  selectSign = () => {
+  selectSign = async () => {
     const sign = document.getElementById("signs");
     const selectedSign = sign.options[sign.selectedIndex].value;
-    this.setState({ signs: selectedSign });
+    await this.setState({ signs: selectedSign });
     console.log(selectedSign);
-    this.fetchHoroscope();
-  };
+    console.log(this.state.signs)
+    this.fetchHoroscope()
+    this.setState({ toggle: !this.state.toggle });
 
-  fetchHoroscope = async () => {
-    await fetch(
-      `https://horoscope5.p.rapidapi.com/general/daily?sign=${this.state.signs}`,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "horoscope5.p.rapidapi.com",
-          "x-rapidapi-key":
-            "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((res) => {
-        this.setState({ horoscope: [res.result.description] });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   showSelect = () => {
-    console.log("yezzie");
+    this.setState({ toggle: !this.state.toggle });
+  }
+
+  fetchHoroscope = async () => {
+
+
+
+    // await fetch(
+    //   `https://horoscope5.p.rapidapi.com/general/daily?sign=${this.state.signs}`,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       "x-rapidapi-host": "horoscope5.p.rapidapi.com",
+    //       "x-rapidapi-key":
+    //         "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
+    //     },
+    //   }
+    // )
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((res) => {
+    //     this.setState({ horoscope: [res.result.description] });
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+
+
   };
 
   fetchJoke = () => {
-    fetch(
-      "https://webknox-jokes.p.rapidapi.com/jokes/random?maxLength=100&minRating=8",
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "webknox-jokes.p.rapidapi.com",
-          "x-rapidapi-key":
-            "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((res) => {
-        this.setState({ joke: [res.joke] });
-        console.log(this.state.joke);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // fetch(
+    //   "https://webknox-jokes.p.rapidapi.com/jokes/random?maxLength=100&minRating=8",
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       "x-rapidapi-host": "webknox-jokes.p.rapidapi.com",
+    //       "x-rapidapi-key":
+    //         "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
+    //     },
+    //   }
+    // )
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((res) => {
+    //     this.setState({ joke: [res.joke] });
+    //     console.log(this.state.joke);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   render() {
@@ -130,7 +141,7 @@ class Calm extends React.Component {
     };
     return (
       <motion.div
-        initial={{ opacity: 0.6 }}
+        initial={{ opacity: 1 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={pageTransition}
@@ -144,28 +155,54 @@ class Calm extends React.Component {
         <div className="card-style">
           <SimpleCard
             fetch={this.state.randomComp.map((item, index) => (
-              <h3
+              <span
                 style={{ display: "flex", justifyContent: "center" }}
                 key={index}
               >
                 {item.compliment}
-              </h3>
+              </span>
+            ))}
+          />
+        </div>
+        <div className="card-style">
+          <SimpleCard
+            fetch={this.state.joke.map((item, index) => (
+              <span key={index}>{item}</span>
+
             ))}
           />
         </div>
 
         <div className="card-style">
           <SimpleCard
-            fetch={this.state.joke.map((item, index) =>
-              item != "" ? <h5 key={index}>{item}</h5> : this.showSelect()
+            fetch={this.state.horoscope.map((item, index) =>
+              <span key={index}>{item}</span>
             )}
           />
         </div>
+        <div className="signs">
+          {this.state.toggle === true ?
+            <select name="signs" id="signs" onChange={this.selectSign}>
+              <option value="">Select Sign</option>
+              <option value="aquarius"  >Aquarius</option>
+              <option value="pisces"  >Pisces</option>
+              <option value="aries"  >Aries</option>
+              <option value="taurus"  >Taurus</option>
+              <option value="gemini">Gemini</option>
+              <option value="cancer">Cancer</option>
+              <option value="leo">Leo</option>
+              <option value="virgo"  >Virgo</option>
+              <option value="libra"  >Libra</option>
+              <option value="scorpio">Scorpio</option>
+              <option value="sagittarius"  >Sagittarius</option>
+              <option value="capricorn"  >Capricorn</option>
+            </select> : ""}</div>
         <div className="bottomNav">
           <SimpleBottomNavigation
             compliment={this.fetchCompliments}
             joke={this.fetchJoke}
-            horoscope={this.fetchHoroscope}
+            horoscope={this.showSelect}
+            sign={this.selectSign}
           />
         </div>
         {/* <button onClick={this.fetchCompliments}>GIVE ME A COMPLIMENT</button>

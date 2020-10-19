@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import "./Landing.css";
 import video from "./rain.mp4";
@@ -21,52 +21,35 @@ const useStyles = makeStyles({
     color: "white",
     height: "100%",
 
-    fontFamily: "Indie Flower, cursive",
+    fontFamily: 'Dosis, sans-serif'
   },
 
   button: {
     position: "absolute",
     top: "40%",
+    color: "white"
   },
 });
 
 const StyledButton = withStyles({
   root: {
-    background: "linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c)",
+    // background: "linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c)",
+    opacity: 1,
 
-    borderRadius: 3,
-    border: 0,
-    color: "black",
+    color: "white",
     width: 200,
     height: 68,
     padding: "0 30px",
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+
   },
   label: {
     textTransform: "capitalize",
-    fontFamily: "Indie Flower, cursive",
+    fontFamily: "Acme, cursive",
     fontSize: 28,
   },
 })(Button);
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    x: "-100px",
-    scale: 0.8,
-  },
-  in: {
-    opacity: 1,
-    x: "40px",
-    y: "0px",
-    scale: 1,
-  },
-  out: {
-    opacity: 0,
-    x: "100px",
-    scale: 1.2,
-  },
-};
+
 
 const pageTransition = {
   type: "tween",
@@ -74,15 +57,11 @@ const pageTransition = {
   duration: 1.5,
 };
 
-const pageStyle = {
-  position: "absolute",
-};
+
 const Landing = () => {
-  useEffect(() => {
-    setContactOpen(true);
-  });
+
   const classes = useStyles();
-  const [isContactOpen, setContactOpen] = useState(false);
+
   //   const fade = useSpring({
   //     transform: isContactOpen
   //       ? `tranlate3d(0,0,0) scale(1)`
