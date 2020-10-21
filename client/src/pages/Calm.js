@@ -15,7 +15,9 @@ class Calm extends React.Component {
     randomComp: [],
     horoscope: [],
     joke: [],
-    toggle: (false)
+    toggle: (false),
+    quote: [],
+    author: []
   };
 
   fetchCompliments = async () => {
@@ -84,64 +86,83 @@ class Calm extends React.Component {
 
 
 
-    // await fetch(
-    //   `https://horoscope5.p.rapidapi.com/general/daily?sign=${this.state.signs}`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "x-rapidapi-host": "horoscope5.p.rapidapi.com",
-    //       "x-rapidapi-key":
-    //         "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
-    //     },
-    //   }
-    // )
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((res) => {
-    //     this.setState({ horoscope: [res.result.description] });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    await fetch(
+      `https://horoscope5.p.rapidapi.com/general/daily?sign=${this.state.signs}`,
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "horoscope5.p.rapidapi.com",
+          "x-rapidapi-key":
+            "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
+        },
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((res) => {
+        this.setState({ horoscope: [res.result.description] });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
 
 
   };
 
   fetchJoke = () => {
-    // fetch(
-    //   "https://webknox-jokes.p.rapidapi.com/jokes/random?maxLength=100&minRating=8",
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "x-rapidapi-host": "webknox-jokes.p.rapidapi.com",
-    //       "x-rapidapi-key":
-    //         "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
-    //     },
-    //   }
-    // )
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((res) => {
-    //     this.setState({ joke: [res.joke] });
-    //     console.log(this.state.joke);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    fetch("https://rapidapi.p.rapidapi.com/v1/joke", {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-host": "joke3.p.rapidapi.com",
+        "x-rapidapi-key": "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a"
+      }
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((res) => {
+        console.log(res)
+        this.setState({ joke: [res.content] });
+        console.log(this.state.joke);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
+  fetchMotivational = () => {
+    fetch("https://rapidapi.p.rapidapi.com/quote?token=ipworld.info", {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-host": "quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com",
+        "x-rapidapi-key": "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a"
+      }
+    })
+      .then(response => {
+
+        return response.json()
+      }).then(resData => {
+        console.log(resData)
+        this.setState({ quote: [resData.text] })
+        this.setState({ author: [resData.author] })
+        console.log(this.state.quote);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 
   render() {
     const pageTransition = {
-      type: "tween",
-      ease: "anticipate",
-      duration: 2.5,
+      // type: "tween",
+      // ease: "anticipate",
+      duration: 0.5,
     };
     return (
       <motion.div
-        initial={{ opacity: 1 }}
+        initial={{ opacity: 0, background: "linear-gradient( to right, #0f0c29, #302b63, #24243e)" }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={pageTransition}
@@ -180,6 +201,16 @@ class Calm extends React.Component {
             )}
           />
         </div>
+        <div className="card-style">
+          <SimpleCard
+            fetch={this.state.quote.map((item, index) =>
+              <span key={index}>{item}</span>
+            )}
+            author={this.state.author.map((item, index) =>
+              <h5 key={index}>{item}</h5>
+            )}
+          />
+        </div>
         <div className="signs">
           {this.state.toggle === true ?
             <select name="signs" id="signs" onChange={this.selectSign}>
@@ -203,6 +234,7 @@ class Calm extends React.Component {
             joke={this.fetchJoke}
             horoscope={this.showSelect}
             sign={this.selectSign}
+            motivate={this.fetchMotivational}
           />
         </div>
         {/* <button onClick={this.fetchCompliments}>GIVE ME A COMPLIMENT</button>

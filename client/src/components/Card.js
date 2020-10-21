@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     transform: "scale(0.8)",
   },
   title: {
-    fontSize: 20,
+    fontSize: 16,
     color: "white",
     fontFamily: 'Acme, sans-serif'
   },
@@ -38,6 +38,7 @@ export default function SimpleCard(props) {
           gutterBottom
         >
           {props.fetch}
+          {props.author}
         </Typography>
       </CardContent>
     </Card>

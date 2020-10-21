@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { motion } from "framer-motion";
 
 import "./Landing.css";
-import video from "./rain.mp4";
+import video from "./coffee.mp4";
 import { Button } from "@material-ui/core";
 // import { useTransition, animated, useSpring, config } from "react-spring";
 
@@ -73,18 +73,19 @@ const Landing = () => {
       // style={pageStyle}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      exit={{ opacity: 1 }}
       className={classes.root}
       transition={pageTransition}
-    >
+    > <video autoPlay muted loop className="container">
+        <source src={video} type="video/mp4" />
+      </video>
       <div className={classes.button}>
         <Link to="/calm" style={{ textDecoration: "none" }}>
           <StyledButton>escape</StyledButton>
         </Link>
       </div>
-      <video autoPlay muted loop id="myVideo">
-        <source src={video} type="video/mp4" />
-      </video>
+
+
     </motion.div>
   );
 };

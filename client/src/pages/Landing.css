@@ -14,3 +14,20 @@
     border: 3px solid green;
     padding: 10px;
 } */
+
+
+
+.container {
+  background: linear-gradient(
+    to right,
+    #0f0c29,
+    #302b63,
+    #24243e
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: 'Acme', sans-serif;
+}

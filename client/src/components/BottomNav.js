@@ -33,19 +33,25 @@ export default function SimpleBottomNavigation(props) {
     >
       <BottomNavigationAction
         onClick={props.compliment}
-        label="Compliment Me"
+        label="Compliment"
         icon={<ThumbUpIcon />}
       />
       <BottomNavigationAction
         onClick={props.joke}
-        label="Tell Me A Joke"
+        label="Joke"
         icon={<InsertEmoticonIcon />}
+      /> <BottomNavigationAction
+        onClick={props.motivate}
+        label="Quote Of The Day"
+        icon={<VisibilityIcon />}
       />
       <BottomNavigationAction
         onClick={props.horoscope}
         label="Horoscope"
         icon={<VisibilityIcon />}
       />
+
+
     </BottomNavigation>
   );
 }
