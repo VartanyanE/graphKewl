@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { motion } from "framer-motion";
+import logo from "../logo.png";
 
 import "./Landing.css";
 import video from "./coffee.mp4";
@@ -12,7 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    background: "black",
     display: "flex",
     justifyContent: "center",
     border: 0,
@@ -20,14 +21,34 @@ const useStyles = makeStyles({
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: "white",
     height: "100%",
+    width: "100%",
+    position: "absolute",
+    top: 0,
+    left: 0,
+  },
 
-    fontFamily: 'Dosis, sans-serif'
+  logo: {
+    position: "absolute",
+    top: "60px",
+
+    height: 20,
+    width: 20,
+  },
+
+  video: {
+    display: "flex",
+    justifyContent: "center",
+    height: "100%",
+    width: "100%",
+    position: "absolute",
+    top: 0,
+    left: 0,
   },
 
   button: {
     position: "absolute",
     top: "40%",
-    color: "white"
+    color: "white",
   },
 });
 
@@ -40,7 +61,6 @@ const StyledButton = withStyles({
     width: 200,
     height: 68,
     padding: "0 30px",
-
   },
   label: {
     textTransform: "capitalize",
@@ -49,17 +69,13 @@ const StyledButton = withStyles({
   },
 })(Button);
 
-
-
 const pageTransition = {
   type: "tween",
   ease: "anticipate",
   duration: 1.5,
 };
 
-
 const Landing = () => {
-
   const classes = useStyles();
 
   //   const fade = useSpring({
@@ -76,16 +92,17 @@ const Landing = () => {
       exit={{ opacity: 1 }}
       className={classes.root}
       transition={pageTransition}
-    > <video autoPlay muted loop className="container">
-        <source src={video} type="video/mp4" />
-      </video>
-      <div className={classes.button}>
+    >
+      <div className={classes.video}>
+        <video autoPlay muted loop>
+          <source src={video} type="video/mp4" />
+        </video>
+      </div>
+      <div className={classes.logo} id="content">
         <Link to="/calm" style={{ textDecoration: "none" }}>
-          <StyledButton>escape</StyledButton>
+          <img src={logo} alt="logo" />
         </Link>
       </div>
-
-
     </motion.div>
   );
 };

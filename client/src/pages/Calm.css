@@ -28,7 +28,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  font-family: 'Acme', sans-serif;
+  font-family: "Acme", sans-serif;
 }
 
 .card-style {
@@ -37,13 +37,16 @@
 
   margin-top: 20px;
   justify-content: center;
-  font-family: 'Acme', sans-serif;
+  font-family: "Acme", sans-serif;
 }
 
-#signs{
- 
-  font-family: 'Acme', sans-serif;
-  background: linear-gradient(to right, #c2e59c, #64b3f4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+#signs {
+  font-family: "Acme", sans-serif;
+  background: linear-gradient(
+    to right,
+    #c2e59c,
+    #64b3f4
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .signs {
@@ -52,5 +55,5 @@
   justify-content: center;
   bottom: 60px;
   right: 0;
-  font-family: 'Acme', sans-serif;
+  font-family: "Acme", sans-serif;
 }

@@ -7,7 +7,6 @@ import SimpleBottomNavigation from "../components/BottomNav";
 
 import SimpleCard from "../components/Card";
 
-
 class Calm extends React.Component {
   state = {
     signs: "",
@@ -15,9 +14,9 @@ class Calm extends React.Component {
     randomComp: [],
     horoscope: [],
     joke: [],
-    toggle: (false),
+    toggle: false,
     quote: [],
-    author: []
+    author: [],
   };
 
   fetchCompliments = async () => {
@@ -72,20 +71,16 @@ class Calm extends React.Component {
     const selectedSign = sign.options[sign.selectedIndex].value;
     await this.setState({ signs: selectedSign });
     console.log(selectedSign);
-    console.log(this.state.signs)
-    this.fetchHoroscope()
+    console.log(this.state.signs);
+    this.fetchHoroscope();
     this.setState({ toggle: !this.state.toggle });
-
   };
 
   showSelect = () => {
     this.setState({ toggle: !this.state.toggle });
-  }
+  };
 
   fetchHoroscope = async () => {
-
-
-
     await fetch(
       `https://horoscope5.p.rapidapi.com/general/daily?sign=${this.state.signs}`,
       {
@@ -106,24 +101,21 @@ class Calm extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-
-
-
   };
 
   fetchJoke = () => {
     fetch("https://rapidapi.p.rapidapi.com/v1/joke", {
-      "method": "GET",
-      "headers": {
+      method: "GET",
+      headers: {
         "x-rapidapi-host": "joke3.p.rapidapi.com",
-        "x-rapidapi-key": "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a"
-      }
+        "x-rapidapi-key": "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
+      },
     })
       .then((response) => {
         return response.json();
       })
       .then((res) => {
-        console.log(res)
+        console.log(res);
         this.setState({ joke: [res.content] });
         console.log(this.state.joke);
       })
@@ -134,25 +126,26 @@ class Calm extends React.Component {
 
   fetchMotivational = () => {
     fetch("https://rapidapi.p.rapidapi.com/quote?token=ipworld.info", {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-host": "quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com",
-        "x-rapidapi-key": "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a"
-      }
+      method: "GET",
+      headers: {
+        "x-rapidapi-host":
+          "quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com",
+        "x-rapidapi-key": "a55981e29amsh474209918c2f0eap1b8fb4jsn84b08394e42a",
+      },
     })
-      .then(response => {
-
-        return response.json()
-      }).then(resData => {
-        console.log(resData)
-        this.setState({ quote: [resData.text] })
-        this.setState({ author: [resData.author] })
+      .then((response) => {
+        return response.json();
+      })
+      .then((resData) => {
+        console.log(resData);
+        this.setState({ quote: [resData.text] });
+        this.setState({ author: [resData.author] });
         console.log(this.state.quote);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
-  }
+  };
 
   render() {
     const pageTransition = {
@@ -162,7 +155,10 @@ class Calm extends React.Component {
     };
     return (
       <motion.div
-        initial={{ opacity: 0, background: "linear-gradient( to right, #0f0c29, #302b63, #24243e)" }}
+        initial={{
+          opacity: 0,
+          background: "linear-gradient( to right, #0f0c29, #302b63, #24243e)",
+        }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={pageTransition}
@@ -180,6 +176,7 @@ class Calm extends React.Component {
                 style={{ display: "flex", justifyContent: "center" }}
                 key={index}
               >
+                {" "}
                 {item.compliment}
               </span>
             ))}
@@ -189,45 +186,48 @@ class Calm extends React.Component {
           <SimpleCard
             fetch={this.state.joke.map((item, index) => (
               <span key={index}>{item}</span>
-
+            ))}
+          />
+        </div>
+        <div className="card-style">
+          <SimpleCard
+            fetch={this.state.quote.map((item, index) => (
+              <span key={index}>{item}"</span>
+            ))}
+            author={this.state.author.map((item, index) => (
+              <h5 key={index}>{item}</h5>
+            ))}
+          />
+        </div>
+        <div className="card-style">
+          <SimpleCard
+            fetch={this.state.horoscope.map((item, index) => (
+              <span key={index}>{item}</span>
             ))}
           />
         </div>
 
-        <div className="card-style">
-          <SimpleCard
-            fetch={this.state.horoscope.map((item, index) =>
-              <span key={index}>{item}</span>
-            )}
-          />
-        </div>
-        <div className="card-style">
-          <SimpleCard
-            fetch={this.state.quote.map((item, index) =>
-              <span key={index}>{item}</span>
-            )}
-            author={this.state.author.map((item, index) =>
-              <h5 key={index}>{item}</h5>
-            )}
-          />
-        </div>
         <div className="signs">
-          {this.state.toggle === true ?
+          {this.state.toggle === true ? (
             <select name="signs" id="signs" onChange={this.selectSign}>
               <option value="">Select Sign</option>
-              <option value="aquarius"  >Aquarius</option>
-              <option value="pisces"  >Pisces</option>
-              <option value="aries"  >Aries</option>
-              <option value="taurus"  >Taurus</option>
+              <option value="aquarius">Aquarius</option>
+              <option value="pisces">Pisces</option>
+              <option value="aries">Aries</option>
+              <option value="taurus">Taurus</option>
               <option value="gemini">Gemini</option>
               <option value="cancer">Cancer</option>
               <option value="leo">Leo</option>
-              <option value="virgo"  >Virgo</option>
-              <option value="libra"  >Libra</option>
+              <option value="virgo">Virgo</option>
+              <option value="libra">Libra</option>
               <option value="scorpio">Scorpio</option>
-              <option value="sagittarius"  >Sagittarius</option>
-              <option value="capricorn"  >Capricorn</option>
-            </select> : ""}</div>
+              <option value="sagittarius">Sagittarius</option>
+              <option value="capricorn">Capricorn</option>
+            </select>
+          ) : (
+            ""
+          )}
+        </div>
         <div className="bottomNav">
           <SimpleBottomNavigation
             compliment={this.fetchCompliments}

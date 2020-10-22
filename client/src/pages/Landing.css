@@ -15,19 +15,36 @@
     padding: 10px;
 } */
 
-
-
 .container {
-  background: linear-gradient(
-    to right,
-    #0f0c29,
-    #302b63,
-    #24243e
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  font-family: 'Acme', sans-serif;
+  font-family: "Acme", sans-serif;
+}
+
+#content {
+  animation: content 1s infinite;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes content {
+  0% {
+    transform: rotate(0deg);
+  }
+  80% {
+    transform: rotate(0deg);
+  }
+  85% {
+    transform: rotate(5deg);
+  }
+  95% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
