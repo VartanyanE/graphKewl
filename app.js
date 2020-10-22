@@ -22,28 +22,37 @@ app.use((req, res, next) => {
   }
   next();
 });
+if (process.env.NODE_ENV === 'production') {
+  // Exprees will serve up production assets
+  app.use(express.static('client/build'));
 
-// using express to hit the graphql endpoint && building the schema using express-graphql
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema: graphQlSchema,
+  // Express serve up index.html file if it doesn't recognize route
+  app.use("/", index);
 
-    // resolvers that use our schema to make our request
-    rootValue: graphQlResolvers,
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+  }
+  // using express to hit the graphql endpoint && building the schema using express-graphql
+  app.use(
+    "/graphql",
+    graphqlHTTP({
+      schema: graphQlSchema,
 
-    graphiql: true,
-  })
-);
+      // resolvers that use our schema to make our request
+      rootValue: graphQlResolvers,
 
-// Connecting our MongoDB
-mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost/graphql")
-  .then(() => {
-    app.listen(PORT, function () {
-      console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+      graphiql: true,
+    })
+  );
+
+  // Connecting our MongoDB
+  mongoose
+    .connect(process.env.MONGODB_URI || "mongodb://localhost/graphql")
+    .then(() => {
+      app.listen(PORT, function () {
+        console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
