@@ -25,14 +25,8 @@ app.use((req, res, next) => {
 if (process.env.NODE_ENV === 'production') {
   // Exprees will serve up production assets
   app.use(express.static('client/build'));
-
-  // Express serve up index.html file if it doesn't recognize route
-  app.use("/", index);
-
-  if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
-  }
 }
+
 // using express to hit the graphql endpoint && building the schema using express-graphql
 app.use(
   "/graphql",
