@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const { graphqlHTTP } = require("express-graphql");
 
 const mongoose = require("mongoose");
-
+const PORT = process.env.PORT || 8000;
 const app = express();
 
 const graphQlSchema = require("./graphql/schema/index");
@@ -40,7 +40,9 @@ app.use(
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost/graphql")
   .then(() => {
-    app.listen(8000);
+    app.listen(PORT, function () {
+      console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+    });
   })
   .catch((err) => {
     console.log(err);
