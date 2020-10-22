@@ -32,27 +32,28 @@ if (process.env.NODE_ENV === 'production') {
   if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
   }
-  // using express to hit the graphql endpoint && building the schema using express-graphql
-  app.use(
-    "/graphql",
-    graphqlHTTP({
-      schema: graphQlSchema,
+}
+// using express to hit the graphql endpoint && building the schema using express-graphql
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: graphQlSchema,
 
-      // resolvers that use our schema to make our request
-      rootValue: graphQlResolvers,
+    // resolvers that use our schema to make our request
+    rootValue: graphQlResolvers,
 
-      graphiql: true,
-    })
-  );
+    graphiql: true,
+  })
+);
 
-  // Connecting our MongoDB
-  mongoose
-    .connect(process.env.MONGODB_URI || "mongodb://localhost/graphql")
-    .then(() => {
-      app.listen(PORT, function () {
-        console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+// Connecting our MongoDB
+mongoose
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/graphql")
+  .then(() => {
+    app.listen(PORT, function () {
+      console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
     });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
