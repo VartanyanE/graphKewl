@@ -1,5 +1,6 @@
 import React from "react";
 import "./Calm.css";
+import logo from "../logo.png"
 
 import ballClack from "../ball-clack.wav";
 import { motion } from "framer-motion";
@@ -12,11 +13,15 @@ class Calm extends React.Component {
     signs: "",
     compliments: [],
     randomComp: [],
+    compToggle: false,
     horoscope: [],
+    horoscopeToggle: false,
     joke: [],
+    jokeToggle: false,
     toggle: false,
     quote: [],
     author: [],
+    quoteToggle: false
   };
 
   fetchCompliments = async () => {
@@ -38,8 +43,7 @@ class Calm extends React.Component {
       },
     })
       .then((res) => {
-        const audioEl = document.getElementsByClassName("audio-element")[0];
-        audioEl.play();
+
         if (res.status !== 200 && res.status !== 201) {
           throw new Error("Failed!");
         }
@@ -47,6 +51,10 @@ class Calm extends React.Component {
       })
       .then((resData) => {
         this.setState({ compliments: resData.data.compliments });
+        this.setState({ compToggle: !this.state.compToggle });
+        this.setState({ jokeToggle: false })
+        this.setState({ quoteToggle: false })
+        this.setState({ horoscopeToggle: false })
         // console.log(this.state.compliments);
       })
       .catch((err) => {
@@ -97,6 +105,12 @@ class Calm extends React.Component {
       })
       .then((res) => {
         this.setState({ horoscope: [res.result.description] });
+        this.setState({ horoscopeToggle: !this.state.horoscopeToggle });
+        this.setState({ jokeToggle: false })
+        this.setState({ quoteToggle: false })
+        this.setState({ compToggle: false })
+        
+        
       })
       .catch((err) => {
         console.log(err);
@@ -117,7 +131,11 @@ class Calm extends React.Component {
       .then((res) => {
         console.log(res);
         this.setState({ joke: [res.content] });
-        console.log(this.state.joke);
+        this.setState({ compToggle: false });
+        this.setState({ jokeToggle: !this.state.jokeToggle })
+        this.setState({ qouteToggle: false })
+        this.setState({ horoscopeToggle: false })
+
       })
       .catch((err) => {
         console.log(err);
@@ -140,7 +158,11 @@ class Calm extends React.Component {
         console.log(resData);
         this.setState({ quote: [resData.text] });
         this.setState({ author: [resData.author] });
-        console.log(this.state.quote);
+        this.setState({quoteToggle: !this.state.quoteToggle})
+        this.setState({ jokeToggle: false })
+        this.setState({compToggle: false})
+        
+        this.setState({ horoscopeToggle: false })
       })
       .catch((err) => {
         console.error(err);
@@ -165,31 +187,32 @@ class Calm extends React.Component {
         className="container"
       >
         <div>
-          <audio className="audio-element">
-            <source src={ballClack}></source>
-          </audio>
+          <img src={logo} alt="logo" />
         </div>
         <div className="card-style">
-          <SimpleCard
-            fetch={this.state.randomComp.map((item, index) => (
-              <span
-                style={{ display: "flex", justifyContent: "center" }}
-                key={index}
-              >
-                {" "}
-                {item.compliment}
-              </span>
-            ))}
-          />
+          {this.state.compToggle === true ?
+            <SimpleCard
+              fetch={this.state.randomComp.map((item, index) => (
+                <span
+                  style={{ display: "flex", justifyContent: "center" }}
+                  key={index}
+                >
+                  {" "}
+                  {item.compliment}
+                </span>
+              ))}
+            /> : ""}
         </div>
         <div className="card-style">
-          <SimpleCard
-            fetch={this.state.joke.map((item, index) => (
-              <span key={index}>{item}</span>
-            ))}
-          />
+          {this.state.jokeToggle === true ?
+            <SimpleCard
+              fetch={this.state.joke.map((item, index) => (
+                <span key={index}>{item}</span>
+              ))}
+            /> : ""}
         </div>
         <div className="card-style">
+          {this.state.quoteToggle === true? 
           <SimpleCard
             fetch={this.state.quote.map((item, index) => (
               <span key={index}>{item}"</span>
@@ -197,14 +220,15 @@ class Calm extends React.Component {
             author={this.state.author.map((item, index) => (
               <h5 key={index}>{item}</h5>
             ))}
-          />
+          /> : "" }
         </div>
         <div className="card-style">
+          {this.state.horoscopeToggle === true ?
           <SimpleCard
             fetch={this.state.horoscope.map((item, index) => (
               <span key={index}>{item}</span>
             ))}
-          />
+          /> : ""}
         </div>
 
         <div className="signs">
@@ -225,8 +249,8 @@ class Calm extends React.Component {
               <option value="capricorn">Capricorn</option>
             </select>
           ) : (
-            ""
-          )}
+              ""
+            )}
         </div>
         <div className="bottomNav">
           <SimpleBottomNavigation

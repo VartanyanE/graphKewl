@@ -42,8 +42,8 @@ class App extends Component {
           {/* <Navigation /> */}
           <main className="main-content">
             <AnimatePresence>
-              <Route exact path="/" component={Landing} key={1} />
-              <Route path="/calm" component={Calm} key={2} />
+              <Route exact path="/" component={Calm} key={1} />
+              {/* <Route path="/calm" component={Calm} key={2} /> */}
             </AnimatePresence>
             {/* {!this.state.token && <Redirect from="/" to="/auth" exact />}
                 {this.state.token && <Redirect from="/" to="/events" exact />}

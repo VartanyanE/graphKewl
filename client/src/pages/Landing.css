@@ -1,50 +1,60 @@
-/* #myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -5;
-} */
 
-/* .container {
-    margin: auto;
-    width: 50%;
-    height: 50%;
-    border: 3px solid green;
-    padding: 10px;
-} */
 
-.container {
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.landingContainer {
   height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  font-family: "Acme", sans-serif;
+  
+  background-image: url(./background-photo.jpg);
+  /* Location of the image */
+  
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: #464646;
+    opacity: 0.3px;
 }
 
-#content {
-  animation: content 1s infinite;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
+@media  (max-width: 767px) {
+  .landingContainer{
+    height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+    background-image: url(./background-mobile.jpg);
+    background-position: center center;
+  
+    /* Background image doesn't tile */
+    background-repeat: no-repeat;
+    
+    /* Background image is fixed in the viewport so that it doesn't move when 
+       the content's height is greater than the image's height */
+    background-attachment: fixed;
+    
+    /* This is what makes the background image rescale based
+       on the container's size */
+    background-size: cover;
+    
+    /* Set a background color that will be displayed
+       while the background image is loading */
+    background-color: #464646;
+      opacity: 0.3px;
 
-@keyframes content {
-  0% {
-    transform: rotate(0deg);
-  }
-  80% {
-    transform: rotate(0deg);
-  }
-  85% {
-    transform: rotate(5deg);
-  }
-  95% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(0deg);
   }
 }

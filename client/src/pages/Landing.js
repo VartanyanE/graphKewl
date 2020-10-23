@@ -90,15 +90,11 @@ const Landing = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 1 }}
-      className={classes.root}
+      className="landingContainer"
       transition={pageTransition}
     >
-      <div className={classes.video}>
-        <video autoPlay muted loop>
-          <source src={video} type="video/mp4" />
-        </video>
-      </div>
-      <div className={classes.logo} id="content">
+
+      <div >
         <Link to="/calm" style={{ textDecoration: "none" }}>
           <img src={logo} alt="logo" />
         </Link>
