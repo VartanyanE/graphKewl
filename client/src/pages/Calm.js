@@ -2,7 +2,7 @@ import React from "react";
 import "./Calm.css";
 import logo from "../logo.png";
 
-import ballClack from "../ball-clack.wav";
+
 import { motion } from "framer-motion";
 import SimpleBottomNavigation from "../components/BottomNav";
 
@@ -44,45 +44,7 @@ class Calm extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-    // this.state.randomComp();
 
-    // let requestBody = {
-    //   query: `
-    //   query {
-    //     compliments {
-    //       compliment
-    //     }
-    //   }
-    //       `,
-    // };
-
-    // await fetch("http://localhost:8000/graphql", {
-    //   method: "POST",
-    //   body: JSON.stringify(requestBody),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((res) => {
-    //     if (res.status !== 200 && res.status !== 201) {
-    //       throw new Error("Failed!");
-    //     }
-    //     return res.json();
-    //   })
-    //   .then((resData) => {
-    //     this.setState({ compliments: resData.data.compliments });
-    //     this.setState({ compToggle: !this.state.compToggle });
-    //     this.setState({ jokeToggle: false });
-    //     this.setState({ quoteToggle: false });
-    //     this.setState({ horoscopeToggle: false });
-    //     // console.log(this.state.compliments);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     return;
-    //   });
-
-    // this.randomComp();
   };
   randomComp = async () => {
     this.state.compliments.map((items) => {
@@ -219,8 +181,8 @@ class Calm extends React.Component {
               ))}
             />
           ) : (
-            ""
-          )}
+              ""
+            )}
         </div>
         <div className="card-style">
           {this.state.jokeToggle === true ? (
@@ -235,8 +197,8 @@ class Calm extends React.Component {
               ))}
             />
           ) : (
-            ""
-          )}
+              ""
+            )}
         </div>
         <div className="card-style">
           {this.state.quoteToggle === true ? (
@@ -259,8 +221,8 @@ class Calm extends React.Component {
               ))}
             />
           ) : (
-            ""
-          )}
+              ""
+            )}
         </div>
         <div className="card-style">
           {this.state.horoscopeToggle === true ? (
@@ -275,8 +237,8 @@ class Calm extends React.Component {
               ))}
             />
           ) : (
-            ""
-          )}
+              ""
+            )}
         </div>
 
         <div className="signs">
@@ -297,8 +259,8 @@ class Calm extends React.Component {
               <option value="capricorn">Capricorn</option>
             </select>
           ) : (
-            ""
-          )}
+              ""
+            )}
         </div>
         <div className="bottomNav">
           <SimpleBottomNavigation
