@@ -1,6 +1,7 @@
 import React from "react";
 import "./Calm.css";
 import logo from "../logo.png";
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 
 import { motion } from "framer-motion";
@@ -22,6 +23,8 @@ class Calm extends React.Component {
     quote: [],
     author: [],
     quoteToggle: false,
+    instructions: false,
+    arrow: false
   };
 
   fetchCompliments = async () => {
@@ -36,10 +39,11 @@ class Calm extends React.Component {
         this.setState({ compliments: [res.compliment] });
         console.log(this.state.compliments);
         this.setState({ compToggle: !this.state.compToggle });
-
+        this.setState({ instructions: true })
         this.setState({ jokeToggle: false });
         this.setState({ quoteToggle: false });
         this.setState({ horoscopeToggle: false });
+        this.setState({ arrow: true });
       })
       .catch((err) => {
         console.log(err);
@@ -91,6 +95,8 @@ class Calm extends React.Component {
         this.setState({ jokeToggle: false });
         this.setState({ quoteToggle: false });
         this.setState({ compToggle: false });
+        this.setState({ instructions: true })
+        this.setState({ arrow: true });
       })
       .catch((err) => {
         console.log(err);
@@ -115,6 +121,8 @@ class Calm extends React.Component {
         this.setState({ jokeToggle: !this.state.jokeToggle });
         this.setState({ quoteToggle: false });
         this.setState({ horoscopeToggle: false });
+        this.setState({ instructions: true })
+        this.setState({ arrow: true });
       })
       .catch((err) => {
         console.log(err);
@@ -140,8 +148,9 @@ class Calm extends React.Component {
         this.setState({ quoteToggle: !this.state.quoteToggle });
         this.setState({ jokeToggle: false });
         this.setState({ compToggle: false });
-
+        this.setState({ instructions: true })
         this.setState({ horoscopeToggle: false });
+        this.setState({ arrow: true });
       })
       .catch((err) => {
         console.error(err);
@@ -166,6 +175,18 @@ class Calm extends React.Component {
       >
         <div>
           <img src={logo} alt="logo" />
+        </div>
+        <div className="instructions">
+          {this.state.instructions === false ? (
+            <h2>let palm buddy make your day</h2>
+          ) : ""}
+
+        </div>
+        <div className="arrow">
+          {this.state.arrow === false ? (
+
+            <ArrowDownwardIcon fontSize="large" />
+          ) : ""}
         </div>
         <div className="card-style">
           {this.state.compToggle === true ? (
