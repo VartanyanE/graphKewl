@@ -1,6 +1,6 @@
 import React from "react";
 import "./Calm.css";
-import logo from "../logo.png"
+import logo from "../logo.png";
 
 import ballClack from "../ball-clack.wav";
 import { motion } from "framer-motion";
@@ -21,48 +21,68 @@ class Calm extends React.Component {
     toggle: false,
     quote: [],
     author: [],
-    quoteToggle: false
+    quoteToggle: false,
   };
 
   fetchCompliments = async () => {
-    let requestBody = {
-      query: `
-      query {
-        compliments {
-          compliment
-        }
-      }
-          `,
-    };
-
-    await fetch("http://localhost:8000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
+    await fetch(`https://complimentr.com/api`, {
+      method: "GET",
     })
-      .then((res) => {
-
-        if (res.status !== 200 && res.status !== 201) {
-          throw new Error("Failed!");
-        }
-        return res.json();
+      .then((response) => {
+        return response.json();
       })
-      .then((resData) => {
-        this.setState({ compliments: resData.data.compliments });
+      .then((res) => {
+        console.log(res);
+        this.setState({ compliments: [res.compliment] });
+        console.log(this.state.compliments);
         this.setState({ compToggle: !this.state.compToggle });
-        this.setState({ jokeToggle: false })
-        this.setState({ quoteToggle: false })
-        this.setState({ horoscopeToggle: false })
-        // console.log(this.state.compliments);
+
+        this.setState({ jokeToggle: false });
+        this.setState({ quoteToggle: false });
+        this.setState({ horoscopeToggle: false });
       })
       .catch((err) => {
         console.log(err);
-        return;
       });
+    // this.state.randomComp();
 
-    this.randomComp();
+    // let requestBody = {
+    //   query: `
+    //   query {
+    //     compliments {
+    //       compliment
+    //     }
+    //   }
+    //       `,
+    // };
+
+    // await fetch("http://localhost:8000/graphql", {
+    //   method: "POST",
+    //   body: JSON.stringify(requestBody),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
+    //   .then((res) => {
+    //     if (res.status !== 200 && res.status !== 201) {
+    //       throw new Error("Failed!");
+    //     }
+    //     return res.json();
+    //   })
+    //   .then((resData) => {
+    //     this.setState({ compliments: resData.data.compliments });
+    //     this.setState({ compToggle: !this.state.compToggle });
+    //     this.setState({ jokeToggle: false });
+    //     this.setState({ quoteToggle: false });
+    //     this.setState({ horoscopeToggle: false });
+    //     // console.log(this.state.compliments);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     return;
+    //   });
+
+    // this.randomComp();
   };
   randomComp = async () => {
     this.state.compliments.map((items) => {
@@ -106,11 +126,9 @@ class Calm extends React.Component {
       .then((res) => {
         this.setState({ horoscope: [res.result.description] });
         this.setState({ horoscopeToggle: !this.state.horoscopeToggle });
-        this.setState({ jokeToggle: false })
-        this.setState({ quoteToggle: false })
-        this.setState({ compToggle: false })
-        
-        
+        this.setState({ jokeToggle: false });
+        this.setState({ quoteToggle: false });
+        this.setState({ compToggle: false });
       })
       .catch((err) => {
         console.log(err);
@@ -132,10 +150,9 @@ class Calm extends React.Component {
         console.log(res);
         this.setState({ joke: [res.content] });
         this.setState({ compToggle: false });
-        this.setState({ jokeToggle: !this.state.jokeToggle })
-        this.setState({ qouteToggle: false })
-        this.setState({ horoscopeToggle: false })
-
+        this.setState({ jokeToggle: !this.state.jokeToggle });
+        this.setState({ quoteToggle: false });
+        this.setState({ horoscopeToggle: false });
       })
       .catch((err) => {
         console.log(err);
@@ -158,11 +175,11 @@ class Calm extends React.Component {
         console.log(resData);
         this.setState({ quote: [resData.text] });
         this.setState({ author: [resData.author] });
-        this.setState({quoteToggle: !this.state.quoteToggle})
-        this.setState({ jokeToggle: false })
-        this.setState({compToggle: false})
-        
-        this.setState({ horoscopeToggle: false })
+        this.setState({ quoteToggle: !this.state.quoteToggle });
+        this.setState({ jokeToggle: false });
+        this.setState({ compToggle: false });
+
+        this.setState({ horoscopeToggle: false });
       })
       .catch((err) => {
         console.error(err);
@@ -190,45 +207,57 @@ class Calm extends React.Component {
           <img src={logo} alt="logo" />
         </div>
         <div className="card-style">
-          {this.state.compToggle === true ?
+          {this.state.compToggle === true ? (
             <SimpleCard
-              fetch={this.state.randomComp.map((item, index) => (
+              fetch={this.state.compliments.map((item, index) => (
                 <span
                   style={{ display: "flex", justifyContent: "center" }}
                   key={index}
                 >
                   {" "}
-                  {item.compliment}
+                  {item}
                 </span>
               ))}
-            /> : ""}
+            />
+          ) : (
+            ""
+          )}
         </div>
         <div className="card-style">
-          {this.state.jokeToggle === true ?
+          {this.state.jokeToggle === true ? (
             <SimpleCard
               fetch={this.state.joke.map((item, index) => (
                 <span key={index}>{item}</span>
               ))}
-            /> : ""}
+            />
+          ) : (
+            ""
+          )}
         </div>
         <div className="card-style">
-          {this.state.quoteToggle === true? 
-          <SimpleCard
-            fetch={this.state.quote.map((item, index) => (
-              <span key={index}>{item}"</span>
-            ))}
-            author={this.state.author.map((item, index) => (
-              <h5 key={index}>{item}</h5>
-            ))}
-          /> : "" }
+          {this.state.quoteToggle === true ? (
+            <SimpleCard
+              fetch={this.state.quote.map((item, index) => (
+                <span key={index}>{item}"</span>
+              ))}
+              author={this.state.author.map((item, index) => (
+                <h5 key={index}>{item}</h5>
+              ))}
+            />
+          ) : (
+            ""
+          )}
         </div>
         <div className="card-style">
-          {this.state.horoscopeToggle === true ?
-          <SimpleCard
-            fetch={this.state.horoscope.map((item, index) => (
-              <span key={index}>{item}</span>
-            ))}
-          /> : ""}
+          {this.state.horoscopeToggle === true ? (
+            <SimpleCard
+              fetch={this.state.horoscope.map((item, index) => (
+                <span key={index}>{item}</span>
+              ))}
+            />
+          ) : (
+            ""
+          )}
         </div>
 
         <div className="signs">
@@ -249,8 +278,8 @@ class Calm extends React.Component {
               <option value="capricorn">Capricorn</option>
             </select>
           ) : (
-              ""
-            )}
+            ""
+          )}
         </div>
         <div className="bottomNav">
           <SimpleBottomNavigation

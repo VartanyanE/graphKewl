@@ -5,7 +5,6 @@ import {
   BrowserRouter as Router,
   Route,
   // Redirect,
-
 } from "react-router-dom";
 // import AuthPage from "./pages/Auth";
 // import BookingsPage from "./pages/Bookings";
