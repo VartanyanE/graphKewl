@@ -196,7 +196,6 @@ class Calm extends React.Component {
       <motion.div
         initial={{
           opacity: 0,
-          background: "linear-gradient( to right, #0f0c29, #302b63, #24243e)",
         }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -227,7 +226,12 @@ class Calm extends React.Component {
           {this.state.jokeToggle === true ? (
             <SimpleCard
               fetch={this.state.joke.map((item, index) => (
-                <span key={index}>{item}</span>
+                <span
+                  style={{ display: "flex", justifyContent: "center" }}
+                  key={index}
+                >
+                  {item}
+                </span>
               ))}
             />
           ) : (
@@ -238,10 +242,20 @@ class Calm extends React.Component {
           {this.state.quoteToggle === true ? (
             <SimpleCard
               fetch={this.state.quote.map((item, index) => (
-                <span key={index}>{item}"</span>
+                <span
+                  style={{ display: "flex", justifyContent: "center" }}
+                  key={index}
+                >
+                  {item}"
+                </span>
               ))}
               author={this.state.author.map((item, index) => (
-                <h5 key={index}>{item}</h5>
+                <h5
+                  style={{ display: "flex", justifyContent: "center" }}
+                  key={index}
+                >
+                  {item}
+                </h5>
               ))}
             />
           ) : (
@@ -252,7 +266,12 @@ class Calm extends React.Component {
           {this.state.horoscopeToggle === true ? (
             <SimpleCard
               fetch={this.state.horoscope.map((item, index) => (
-                <span key={index}>{item}</span>
+                <span
+                  style={{ display: "flex", justifyContent: "center" }}
+                  key={index}
+                >
+                  {item}
+                </span>
               ))}
             />
           ) : (

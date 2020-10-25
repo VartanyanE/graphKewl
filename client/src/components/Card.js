@@ -9,7 +9,8 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles({
   root: {
     width: "80%",
-    background: "linear-gradient( to right,#0f0c29, #302b63, #24243e)",
+    color: "linear-gradient(to right, #feac5e, #c779d0, #4bc0c8)",
+    background: " linear-gradient(132deg, #F4D03F 0%, #16A085 100%)",
   },
   bullet: {
     display: "inline-block",
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 18,
-    color: "white",
+    color: "linear-gradient(to right, #feac5e, #c779d0, #4bc0c8)",
     fontFamily: "Acme, sans-serif",
   },
   pos: {
