@@ -48,7 +48,7 @@
 }
 
 .arrow {
-  display: block;
+  
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -83,11 +83,22 @@
   font-family: "Acme", sans-serif;
 }
 
-@keyframes arrowDrop  {
+
+
+@media only screen and (max-width: 700px) {@keyframes arrowDrop  {
   from {
- margin-top: 400px;
+ margin-top: 100px;
   }
   to {
-    margin-top: 500px
+    margin-top: 200px
+  }
+}
+  .instructions {
+   margin-top:50px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .arrow {
+   margin-top:100px;
   }
 }
